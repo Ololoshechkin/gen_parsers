@@ -1,0 +1,7 @@
+(x: Int = 0, y: String = “aba”)  someNode (z: Int = 0)
+ : Identifier [id] { $y = id.text; }
+ | Identifier [id] someNode [sn] (z = $z + 1) { $x = 1 + sn.x; $y = id.text + “ “ + sn.y; }
+ | someOtherNode { x = -1; y = “undefined”; }
+ ;
+
+someOtherNode: "a" | "a" someOtherNode;

@@ -1,0 +1,9 @@
+(val: Int = 0) x
+    : y [y] { $val = y.value; }
+    | z
+    ;
+(value: Int) y: TERM [t] { $value = t.length; };
+z: TERM2 | TERM3;
+TERM: "a";
+TERM2: "b";
+TERM3: "c";
