@@ -1,5 +1,6 @@
 import generator.Generator
 
 fun main(args: Array<String>) {
-    Generator("input.txt").generate("Output.kt")
+//    Generator("grammar.txt").generate("Output.kt")
+    Parser("input.txt").parse()
 }

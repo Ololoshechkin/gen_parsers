@@ -15,9 +15,10 @@ class Generator(inputFileName: String) {
 
     fun generate(outputFileName: String) {
         File(outputFileName).printWriter().use { output ->
-            LexerVisitor(output).visit(ruleSet)
+            val lexerVisitor = LexerVisitor(output)
+            lexerVisitor.visit(ruleSet)
             GrammarClassDefVisitor(output).visit(ruleSet)
-            ParserGenVisitor(output).visit(ruleSet)
+            ParserGenVisitor(output, lexerVisitor).visit(ruleSet)
         }
     }
 

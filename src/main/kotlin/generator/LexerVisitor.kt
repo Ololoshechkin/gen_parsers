@@ -9,11 +9,15 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
 
     val textToToken = hashMapOf<String, String>()
 
+    val tokenToTexts = hashMapOf<String, HashSet<String>>()
+
     override fun visitRuleset(ctx: LL1GrammarParser.RulesetContext?) {
         output.println("\nimport java.io.File\n\n")
         output.println("data class TokenWithText(val token: Token, val text: String)\n")
         output.println("enum class Token {")
-        output.println("    _ID_,")
+        output.println("    IDENTIFIER,")
+        output.println("    EOF,")
+        output.println("    LITERAL,")
         visitChildren(ctx)
         output.println("}\n\n")
 
@@ -33,11 +37,11 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
                     "           if (false) {}\n" +
                     /*       */ textToToken
                                     .map { (text, token) ->
-                                        "           else if (identifier == \"$text\") {tokenList.add(TokenWithText(Token.$token, identifier)) }\n"
+                                        "           else if (identifier == $text) {tokenList.add(TokenWithText(Token.$token, identifier)) }\n"
                                     }
                                     .joinToString("") +
                     "           else {\n" +
-                    "               tokenList.add(TokenWithText(Token._ID_, identifier))\n" +
+                    "               tokenList.add(TokenWithText(Token.IDENTIFIER, identifier))\n" +
                     "           }\n" +
                     "           i = pos\n" +
                     "        }"
@@ -45,18 +49,25 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
         textToToken.forEach { text, token ->
             output.println(
                 "" +
-                        "        else if (text.substring(i).startsWith(\"$text\")) {\n" +
-                        "            tokenList.add(TokenWithText(Token.$token, \"$text\"))\n" +
-                        "            i += \"$text\".length\n" +
+                        "        else if (text.substring(i).startsWith($text)) {\n" +
+                        "            tokenList.add(TokenWithText(Token.$token, $text))\n" +
+                        "            i += $text.length\n" +
                         "        }"
             )
         }
         output.println(
             "" +
                     "   }\n" +
+                    "   tokenList.add(TokenWithText(Token.EOF, \"^\"))\n" +
                     "   return tokenList\n" +
                     "}\n\n"
         )
+
+        textToToken.forEach { text, token ->
+            tokenToTexts.putIfAbsent(token, hashSetOf())
+            tokenToTexts[token]!!.add(text)
+        }
+
     }
 
     override fun visitTerminalRule(ctx: LL1GrammarParser.TerminalRuleContext?) {
@@ -67,8 +78,13 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
         uniqueTerminals.add(terminal)
         output.println("    $terminal,")
         ctx.terminalOptionList()!!.terminalOption().forEach { option ->
-            val text = option.text.removePrefix("\"").removeSuffix("\"")
+            val text = option.text
             textToToken[text] = terminal
         }
     }
+
+    override fun visitLiteral(ctx: LL1GrammarParser.LiteralContext?) {
+        textToToken[ctx!!.text] = "LITERAL"
+    }
+
 }
