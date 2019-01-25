@@ -24,6 +24,7 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
         output.println("enum class Token {")
         output.println("    IDENTIFIER,")
         output.println("    EOF,")
+        output.println("    EPS,")
         output.println("    LITERAL,")
         visitChildren(ctx)
         output.println("}\n\n")
@@ -35,7 +36,7 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
                     "    val tokenList = mutableListOf<TokenWithText>()\n" +
                     "    var i = 0\n" +
                     "    while (i < text.length) {\n" +
-                    "        if (text[i] == ' ') {\n" +
+                    "        if (text[i].isWhitespace()) {\n" +
                     "            i++\n" +
                     "        } else if (text[i].isLetter()) {\n" +
                     "           var pos = i + 1\n" +
@@ -64,6 +65,7 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
         }
         output.println(
             "" +
+                    "       else throw Exception(\"unexpected symbol: \${text[i]}\")\n" +
                     "   }\n" +
                     "   tokenList.add(TokenWithText(Token.EOF, \"^\"))\n" +
                     "   return tokenList\n" +

@@ -1,1 +1,5 @@
-abacaba abacaba abacaba a koko
+fun f(): Int
+
+var x: String
+
+fun gEE(y: Int, z: String): Boolean

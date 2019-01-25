@@ -10,8 +10,11 @@ class TokenWithText(val token: Token, val text: String) {
 enum class Token {
     IDENTIFIER,
     EOF,
+    EPS,
     LITERAL,
-    Term,
+    INT,
+    STRING,
+    BOOL,
 }
 
 
@@ -20,33 +23,64 @@ fun applyLexer(fileName: String): List<TokenWithText> {
     val tokenList = mutableListOf<TokenWithText>()
     var i = 0
     while (i < text.length) {
-        if (text[i] == ' ') {
+        if (text[i].isWhitespace()) {
             i++
         } else if (text[i].isLetter()) {
             var pos = i + 1
             while (pos < text.length && (text[pos].isLetter() || text[pos].isDigit())) pos++
             val identifier = text.substring(i, pos)
             if (false) {}
-            else if (identifier == "b") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
-            else if (identifier == "a") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
-            else if (identifier == "koko") {tokenList.add(TokenWithText(Token.Term, identifier)) }
+            else if (identifier == "Int") {tokenList.add(TokenWithText(Token.INT, identifier)) }
+            else if (identifier == ",") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
+            else if (identifier == "String") {tokenList.add(TokenWithText(Token.STRING, identifier)) }
+            else if (identifier == "fun") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
+            else if (identifier == ":") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
+            else if (identifier == ")") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
+            else if (identifier == "var") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
+            else if (identifier == "(") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
+            else if (identifier == "Boolean") {tokenList.add(TokenWithText(Token.BOOL, identifier)) }
             else {
                 tokenList.add(TokenWithText(Token.IDENTIFIER, identifier))
             }
             i = pos
         }
-        else if (text.substring(i).startsWith("b")) {
-            tokenList.add(TokenWithText(Token.LITERAL, "b"))
-            i += "b".length
+        else if (text.substring(i).startsWith("Int")) {
+            tokenList.add(TokenWithText(Token.INT, "Int"))
+            i += "Int".length
         }
-        else if (text.substring(i).startsWith("a")) {
-            tokenList.add(TokenWithText(Token.LITERAL, "a"))
-            i += "a".length
+        else if (text.substring(i).startsWith(",")) {
+            tokenList.add(TokenWithText(Token.LITERAL, ","))
+            i += ",".length
         }
-        else if (text.substring(i).startsWith("koko")) {
-            tokenList.add(TokenWithText(Token.Term, "koko"))
-            i += "koko".length
+        else if (text.substring(i).startsWith("String")) {
+            tokenList.add(TokenWithText(Token.STRING, "String"))
+            i += "String".length
         }
+        else if (text.substring(i).startsWith("fun")) {
+            tokenList.add(TokenWithText(Token.LITERAL, "fun"))
+            i += "fun".length
+        }
+        else if (text.substring(i).startsWith(":")) {
+            tokenList.add(TokenWithText(Token.LITERAL, ":"))
+            i += ":".length
+        }
+        else if (text.substring(i).startsWith(")")) {
+            tokenList.add(TokenWithText(Token.LITERAL, ")"))
+            i += ")".length
+        }
+        else if (text.substring(i).startsWith("var")) {
+            tokenList.add(TokenWithText(Token.LITERAL, "var"))
+            i += "var".length
+        }
+        else if (text.substring(i).startsWith("(")) {
+            tokenList.add(TokenWithText(Token.LITERAL, "("))
+            i += "(".length
+        }
+        else if (text.substring(i).startsWith("Boolean")) {
+            tokenList.add(TokenWithText(Token.BOOL, "Boolean"))
+            i += "Boolean".length
+        }
+        else throw Exception("unexpected symbol: ${text[i]}")
     }
     tokenList.add(TokenWithText(Token.EOF, "^"))
     return tokenList
@@ -150,30 +184,73 @@ open class NonTerminalNode(parent: AnyNode?) : AnyNode(parent) {
 }
 
 
-class someNode_Node(parent: AnyNode?, val z:Int=0) : NonTerminalNode(parent) {
+class translationUnit_Node(parent: AnyNode?, val prevDeclarations:String="") : NonTerminalNode(parent) {
 
-    var x: Int? =0
+    var funCount: Int? =0
         private set
 
-    var y: String? ="aba"
+    var varCount: Int? =0
         private set
 
 
-    fun setChildren(id : TerminalNode, sn : someNode_Node) {
-        children = listOf(id, sn)
-        this.x = 1 + sn.x!!; this.y = id.text + " " + sn.y!!;
+    fun setChildren(decl : declaration_Node, tu : translationUnit_Node) {
+        children = listOf(decl, tu)
+
+        this.funCount = tu.funCount!! + decl.funCount!!;
+        this.varCount = tu.varCount!! + decl.varCount!!;
+
     }
 
 
-    fun setChildren(arg0 : someOtherNode_Node, arg1 : TerminalNode) {
-        children = listOf(arg0, arg1)
-        x = -1; y = "undefined";
+    fun setChildren(arg0 : TerminalNode) {
+        children = listOf(arg0)
+
     }
 
 }
 
 
-class someOtherNode_Node(parent: AnyNode?) : NonTerminalNode(parent) {
+class declaration_Node(parent: AnyNode?) : NonTerminalNode(parent) {
+
+    var funCount: Int? =0
+        private set
+
+    var varCount: Int? =0
+        private set
+
+    var name: String?  = null
+        private set
+
+
+    fun setChildren(fn : funDecl_Node) {
+        children = listOf(fn)
+        this.funCount = 1; this.name = fn.name!!
+    }
+
+
+    fun setChildren(vr : varDecl_Node) {
+        children = listOf(vr)
+        this.varCount = 1;  this.name = vr.name!!
+    }
+
+}
+
+
+class funDecl_Node(parent: AnyNode?) : NonTerminalNode(parent) {
+
+    var name: String?  = null
+        private set
+
+
+    fun setChildren(arg0 : TerminalNode, id : TerminalNode, arg2 : TerminalNode, arg3 : argList_Node, arg4 : TerminalNode, arg5 : typeSuffix_Node) {
+        children = listOf(arg0, id, arg2, arg3, arg4, arg5)
+        this.name = id.text
+    }
+
+}
+
+
+class argList_Node(parent: AnyNode?) : NonTerminalNode(parent) {
 
 
     fun setChildren(arg0 : TerminalNode) {
@@ -182,9 +259,73 @@ class someOtherNode_Node(parent: AnyNode?) : NonTerminalNode(parent) {
     }
 
 
-    fun setChildren(arg0 : TerminalNode, arg1 : someOtherNode_Node) {
+    fun setChildren(arg0 : arg_Node, arg1 : argListSuffix_Node) {
         children = listOf(arg0, arg1)
 
+    }
+
+}
+
+
+class argListSuffix_Node(parent: AnyNode?) : NonTerminalNode(parent) {
+
+
+    fun setChildren(arg0 : TerminalNode) {
+        children = listOf(arg0)
+
+    }
+
+
+    fun setChildren(arg0 : TerminalNode, arg1 : argList_Node) {
+        children = listOf(arg0, arg1)
+
+    }
+
+}
+
+
+class arg_Node(parent: AnyNode?) : NonTerminalNode(parent) {
+
+
+    fun setChildren(arg0 : TerminalNode, arg1 : typeSuffix_Node) {
+        children = listOf(arg0, arg1)
+
+    }
+
+}
+
+
+class typeSuffix_Node(parent: AnyNode?) : NonTerminalNode(parent) {
+
+
+    fun setChildren(arg0 : TerminalNode, arg1 : type_Node) {
+        children = listOf(arg0, arg1)
+
+    }
+
+}
+
+
+class type_Node(parent: AnyNode?) : NonTerminalNode(parent) {
+
+
+    fun setChildren(arg0 : TerminalNode) {
+        children = listOf(arg0)
+
+    }
+
+}
+
+
+class varDecl_Node(parent: AnyNode?) : NonTerminalNode(parent) {
+
+    var name: String?  = null
+        private set
+
+
+    fun setChildren(arg0 : TerminalNode, id : TerminalNode, arg2 : typeSuffix_Node) {
+        children = listOf(arg0, id, arg2)
+        this.name = id.text
     }
 
 }
@@ -215,46 +356,157 @@ class Parser(fileName: String) {
     }
 
 
-    private fun parse_someNode(parent: AnyNode?, z:Int=0): someNode_Node {
-        val someNode = someNode_Node(parent, z)
+    private fun parse_translationUnit(parent: AnyNode?, prevDeclarations:String=""): translationUnit_Node {
+        val translationUnit = translationUnit_Node(parent, prevDeclarations)
+        when (curToken()) {
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "var"), TokenWithText(Token.LITERAL, "fun")) -> {
+                val decl = parse_declaration(translationUnit)
+                val tu = parse_translationUnit(translationUnit, prevDeclarations=decl.name+", "+prevDeclarations)
+                translationUnit.setChildren(decl, tu)
+            }
+            in listOf<TokenWithText>(TokenWithText(Token.EOF, "")) -> {
+                val _x0 = consumeToken(translationUnit, Token.EOF)
+                translationUnit.setChildren(_x0)
+            }
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
+        }
+        return translationUnit
+    }
+
+    private fun parse_declaration(parent: AnyNode?): declaration_Node {
+        val declaration = declaration_Node(parent)
+        when (curToken()) {
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "fun")) -> {
+                val fn = parse_funDecl(declaration)
+                declaration.setChildren(fn)
+            }
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "var")) -> {
+                val vr = parse_varDecl(declaration)
+                declaration.setChildren(vr)
+            }
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
+        }
+        return declaration
+    }
+
+    private fun parse_funDecl(parent: AnyNode?): funDecl_Node {
+        val funDecl = funDecl_Node(parent)
+        when (curToken()) {
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "fun")) -> {
+                val _x0 = consumeLiteral(funDecl, "fun")
+                val id = consumeToken(funDecl, Token.IDENTIFIER)
+                val _x2 = consumeLiteral(funDecl, "(")
+                val _x3 = parse_argList(funDecl)
+                val _x4 = consumeLiteral(funDecl, ")")
+                val _x5 = parse_typeSuffix(funDecl)
+                funDecl.setChildren(_x0, id, _x2, _x3, _x4, _x5)
+            }
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
+        }
+        return funDecl
+    }
+
+    private fun parse_argList(parent: AnyNode?): argList_Node {
+        val argList = argList_Node(parent)
+        when (curToken()) {
+            in listOf<TokenWithText>() -> {
+                val _x0 = consumeToken(argList, Token.EPS)
+                argList.setChildren(_x0)
+            }
+            in listOf<TokenWithText>(TokenWithText(Token.IDENTIFIER, "")) -> {
+                val _x0 = parse_arg(argList)
+                val _x1 = parse_argListSuffix(argList)
+                argList.setChildren(_x0, _x1)
+            }
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, ")")) -> {
+                argList.setChildren(TerminalNode(argList, ""))
+            }
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
+        }
+        return argList
+    }
+
+    private fun parse_argListSuffix(parent: AnyNode?): argListSuffix_Node {
+        val argListSuffix = argListSuffix_Node(parent)
+        when (curToken()) {
+            in listOf<TokenWithText>() -> {
+                val _x0 = consumeToken(argListSuffix, Token.EPS)
+                argListSuffix.setChildren(_x0)
+            }
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, ",")) -> {
+                val _x0 = consumeLiteral(argListSuffix, ",")
+                val _x1 = parse_argList(argListSuffix)
+                argListSuffix.setChildren(_x0, _x1)
+            }
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, ")")) -> {
+                argListSuffix.setChildren(TerminalNode(argListSuffix, ""))
+            }
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
+        }
+        return argListSuffix
+    }
+
+    private fun parse_arg(parent: AnyNode?): arg_Node {
+        val arg = arg_Node(parent)
         when (curToken()) {
             in listOf<TokenWithText>(TokenWithText(Token.IDENTIFIER, "")) -> {
-                val x0 = consumeToken(someNode, Token.IDENTIFIER)
-                val x1 = parse_someNode(someNode, z=someNode.z+1)
-                someNode.setChildren(x0, x1)
+                val _x0 = consumeToken(arg, Token.IDENTIFIER)
+                val _x1 = parse_typeSuffix(arg)
+                arg.setChildren(_x0, _x1)
             }
-            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "b"), TokenWithText(Token.Term, ""), TokenWithText(Token.LITERAL, "a")) -> {
-                val x0 = parse_someOtherNode(someNode)
-                val x1 = consumeToken(someNode, Token.EOF)
-                someNode.setChildren(x0, x1)
-            }
-            else -> throw Exception("unexpected token : ${curToken()}")
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
         }
-        return someNode
+        return arg
     }
 
-    private fun parse_someOtherNode(parent: AnyNode?): someOtherNode_Node {
-        val someOtherNode = someOtherNode_Node(parent)
+    private fun parse_typeSuffix(parent: AnyNode?): typeSuffix_Node {
+        val typeSuffix = typeSuffix_Node(parent)
         when (curToken()) {
-            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "b")) -> {
-                val x0 = consumeLiteral(someOtherNode, "b")
-                someOtherNode.setChildren(x0)
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, ":")) -> {
+                val _x0 = consumeLiteral(typeSuffix, ":")
+                val _x1 = parse_type(typeSuffix)
+                typeSuffix.setChildren(_x0, _x1)
             }
-            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "a")) -> {
-                val x0 = consumeLiteral(someOtherNode, "a")
-                val x1 = parse_someOtherNode(someOtherNode)
-                someOtherNode.setChildren(x0, x1)
-            }
-            in listOf<TokenWithText>(TokenWithText(Token.Term, "")) -> {
-                val x0 = consumeToken(someOtherNode, Token.Term)
-                someOtherNode.setChildren(x0)
-            }
-            else -> throw Exception("unexpected token : ${curToken()}")
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
         }
-        return someOtherNode
+        return typeSuffix
     }
 
-    fun parse() = parse_someNode(null)
+    private fun parse_type(parent: AnyNode?): type_Node {
+        val type = type_Node(parent)
+        when (curToken()) {
+            in listOf<TokenWithText>(TokenWithText(Token.INT, "")) -> {
+                val _x0 = consumeToken(type, Token.INT)
+                type.setChildren(_x0)
+            }
+            in listOf<TokenWithText>(TokenWithText(Token.STRING, "")) -> {
+                val _x0 = consumeToken(type, Token.STRING)
+                type.setChildren(_x0)
+            }
+            in listOf<TokenWithText>(TokenWithText(Token.BOOL, "")) -> {
+                val _x0 = consumeToken(type, Token.BOOL)
+                type.setChildren(_x0)
+            }
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
+        }
+        return type
+    }
+
+    private fun parse_varDecl(parent: AnyNode?): varDecl_Node {
+        val varDecl = varDecl_Node(parent)
+        when (curToken()) {
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "var")) -> {
+                val _x0 = consumeLiteral(varDecl, "var")
+                val id = consumeToken(varDecl, Token.IDENTIFIER)
+                val _x2 = parse_typeSuffix(varDecl)
+                varDecl.setChildren(_x0, id, _x2)
+            }
+            else -> throw Exception("unexpected token : ${curToken().token} (\"${curToken().text}\")")
+        }
+        return varDecl
+    }
+
+    fun parse() = parse_translationUnit(null)
 
 }
 

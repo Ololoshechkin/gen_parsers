@@ -44,7 +44,7 @@ varValue
     | identifier '(' varValue ')' ('.' varValue)? // value -> f(value).value?
     ;
 
-variable: (NUMBER | 'null' | STRING | '$' identifier);
+variable: (NUMBER | 'null' | STRING | '$' identifier | identifier);
 
 literal: STRING;
 

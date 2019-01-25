@@ -11,17 +11,18 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
         override fun toString() = "TokenWithText(Token.$token, ${literal ?: "\"\""})"
     }
 
-    val EPS = Token("EPS")
-    val EOF = Token("EPS")
+    val EPS = Token("EPS", "\"\"")
+    val EOF = Token("EOF")
 
     val first = hashMapOf<String, HashSet<Token>>()
     val follow = hashMapOf<String, HashSet<Token>>()
 
     fun first(sequence: List<LL1GrammarParser.SequenceItemContext>): HashSet<Token> {
-        if (sequence.isEmpty()) return hashSetOf(Token("EPS"))
+        if (sequence.isEmpty()) return hashSetOf(EPS)
         val firstElem = sequence.first()
         return when {
             firstElem.literal() != null -> hashSetOf(Token("LITERAL", firstElem.literal().text))
+            firstElem.terminal() != null && firstElem.terminal().text == "EPS" -> hashSetOf(EPS)
             firstElem.terminal() != null -> hashSetOf(Token(firstElem.terminal().text))
             else -> {
                 val ans = first[firstElem.nonTerminal().text]!!
@@ -145,6 +146,7 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
         output.println(
             "" +
                     "   private fun parse_$someNode(parent: AnyNode?${inheritedAttributes?.joinToString(separator = ", ", prefix = ", ") { it.text } ?: ""}): ${someNode}_Node {\n" +
+//                    "       println(\"parse_$someNode, \$pos\")\n" +
                     "       val $someNode = ${someNode}_Node(parent${inheritedAttributes?.joinToString(separator = ", ", prefix = ", ") { it.varName().text } ?: ""})\n" +
                     "       when (curToken()) {"
         )
@@ -158,20 +160,21 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
                 "           in listOf<TokenWithText>(${(firstAlpha - EPS).joinToString(", ")}) -> {"
             )
             sequence.forEachIndexed { i, X ->
+                val varName = X.namedArg()?.varName()?.text ?: "_x$i"
                 when {
                     X.literal() != null -> {
                         output.println(
-                            "               val x$i = consumeLiteral($someNode, ${X.literal().text})"
+                            "               val $varName = consumeLiteral($someNode, ${X.literal().text})"
                         )
                     }
                     X.terminal() != null -> {
                         output.println(
-                            "               val x$i = consumeToken($someNode, Token.${X.terminal().text})"
+                            "               val $varName = consumeToken($someNode, Token.${X.terminal().text})"
                         )
                     }
                     else -> { // non-terminal
                         output.println(
-                            "               val x$i = parse_${X.nonTerminal().text}($someNode${X.inheritedValues()?.initializer()
+                            "               val $varName = parse_${X.nonTerminal().text}($someNode${X.inheritedValues()?.initializer()
                                 ?.joinToString(separator = ", ", prefix = ", ") { it.text.replace("$", "$someNode.") }
                                 ?: ""
                             })"
@@ -179,7 +182,9 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
                     }
                 }
             }
-            output.println("                $someNode.setChildren(${(0 until sequence.size).joinToString(", ") { "x$it" }})")
+            output.println("                $someNode.setChildren(${(0 until sequence.size).joinToString(", ") {
+                sequence[it].namedArg()?.varName()?.text ?: "_x$it"
+            }})")
             output.println("            }")
         }
 
@@ -187,14 +192,14 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
             output.println(
                 "" +
                         "           in listOf<TokenWithText>(${follow[someNode]!!.joinToString(", ")}) -> {\n" +
-                        "               $someNode.setChildren(TerminalNode($someNode, $EPS))\n" +
+                        "               $someNode.setChildren(TerminalNode($someNode, ${EPS.literal}))\n" +
                         "           }"
             )
         }
 
         output.println(
             "" +
-                    "           else -> throw Exception(\"unexpected token : \${curToken()}\")"
+                    "           else -> throw Exception(\"unexpected token : \${curToken().token} (\\\"\${curToken().text}\\\")\")"
         )
 
         output.println("       }")
