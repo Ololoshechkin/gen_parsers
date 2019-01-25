@@ -9,11 +9,18 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
 
     val textToToken = hashMapOf<String, String>()
 
-    val tokenToTexts = hashMapOf<String, HashSet<String>>()
-
     override fun visitRuleset(ctx: LL1GrammarParser.RulesetContext?) {
-        output.println("\nimport java.io.File\n\n")
-        output.println("data class TokenWithText(val token: Token, val text: String)\n")
+        output.println("" +
+                "\n" +
+                "import java.io.File\n" +
+                "import java.io.IOException\n" +
+                "\n"
+        )
+        output.println("" +
+                "class TokenWithText(val token: Token, val text: String) {\n" +
+                "   override fun equals(other: Any?) = other is TokenWithText && other.token == token && (other.token != Token.LITERAL || other.text == text)\n" +
+                "}\n"
+        )
         output.println("enum class Token {")
         output.println("    IDENTIFIER,")
         output.println("    EOF,")
@@ -62,11 +69,6 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
                     "   return tokenList\n" +
                     "}\n\n"
         )
-
-        textToToken.forEach { text, token ->
-            tokenToTexts.putIfAbsent(token, hashSetOf())
-            tokenToTexts[token]!!.add(text)
-        }
 
     }
 

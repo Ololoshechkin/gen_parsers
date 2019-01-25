@@ -1,8 +1,11 @@
 
 import java.io.File
+import java.io.IOException
 
 
-data class TokenWithText(val token: Token, val text: String)
+class TokenWithText(val token: Token, val text: String) {
+    override fun equals(other: Any?) = other is TokenWithText && other.token == token && (other.token != Token.LITERAL || other.text == text)
+}
 
 enum class Token {
     IDENTIFIER,
@@ -24,12 +27,17 @@ fun applyLexer(fileName: String): List<TokenWithText> {
             while (pos < text.length && (text[pos].isLetter() || text[pos].isDigit())) pos++
             val identifier = text.substring(i, pos)
             if (false) {}
+            else if (identifier == "b") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
             else if (identifier == "a") {tokenList.add(TokenWithText(Token.LITERAL, identifier)) }
             else if (identifier == "koko") {tokenList.add(TokenWithText(Token.Term, identifier)) }
             else {
                 tokenList.add(TokenWithText(Token.IDENTIFIER, identifier))
             }
             i = pos
+        }
+        else if (text.substring(i).startsWith("b")) {
+            tokenList.add(TokenWithText(Token.LITERAL, "b"))
+            i += "b".length
         }
         else if (text.substring(i).startsWith("a")) {
             tokenList.add(TokenWithText(Token.LITERAL, "a"))
@@ -49,6 +57,72 @@ abstract class AnyNode(var parent: AnyNode? = null) {
     abstract val text: String
     abstract val childCount: Int
     abstract fun getChild(i: Int): AnyNode
+    @Throws(IOException::class)
+    private fun treeView(outstrBuilder: StringBuilder, colPositions: ArrayList<Int>, depth: Int, popLast: Boolean) {
+        var j = 0
+        for (i in 0 until depth) {
+            if (j < colPositions.size && colPositions[j] == i) {
+                outstrBuilder.append(if (j == colPositions.size - 1 && popLast) '+' else '|')
+                j++
+            } else if (i == depth - 1) {
+                outstrBuilder.append('>')
+            } else if (j == colPositions.size) {
+                outstrBuilder.append('-')
+            } else {
+                outstrBuilder.append(' ')
+            }
+        }
+        outstrBuilder.append(toString())
+        outstrBuilder.append("  " + getAttributes())
+        outstrBuilder.append('\n')
+        if (popLast) {
+            colPositions.removeAt(colPositions.size - 1)
+        }
+        colPositions.add(depth)
+        for (i in 0 until childCount) {
+            getChild(i).treeView(
+                outstrBuilder,
+                colPositions,
+                depth + toString().length / 2,
+                i == childCount - 1
+            )
+        }
+        if (childCount == 0) {
+            colPositions.removeAt(colPositions.size - 1)
+        }
+    }
+
+    fun getAttributes() = when {
+        this is TerminalNode -> ""
+        else -> this::class.java.methods
+            .filter {
+                it.name.startsWith("get") && !it.name.startsWith("getChild") && it.name !in listOf(
+                    "getText",
+                    "getParent",
+                    "getClass",
+                    "getAttributes"
+                )
+            }
+            .sortedBy { it.name }
+            .joinToString(separator = ", ") {
+                "${it.name.removePrefix("get")} = ${it.invoke(this)}"
+            }
+    }
+
+    override fun toString(): String {
+        var str = this.javaClass.simpleName
+        if (this is TerminalNode) {
+            str += "[\"$text\"]"
+        }
+        return str
+    }
+
+    @Throws(IOException::class)
+    fun treeView(): String {
+        val outstrBuilder = StringBuilder()
+        treeView(outstrBuilder, ArrayList(), 0, false)
+        return outstrBuilder.toString()
+    }
 }
 
 class TerminalNode(parent: AnyNode?, override val text: String) : AnyNode(parent) {
@@ -91,8 +165,8 @@ class someNode_Node(parent: AnyNode?, val z:Int=0) : NonTerminalNode(parent) {
     }
 
 
-    fun setChildren(arg0 : someOtherNode_Node) {
-        children = listOf(arg0)
+    fun setChildren(arg0 : someOtherNode_Node, arg1 : TerminalNode) {
+        children = listOf(arg0, arg1)
         x = -1; y = "undefined";
     }
 
@@ -117,64 +191,62 @@ class someOtherNode_Node(parent: AnyNode?) : NonTerminalNode(parent) {
 
 
 class Parser(fileName: String) {
-    private val tokens = applyLexer(fileName)
+    private val tokens = applyLexer(fileName).also { println(it.map { it.token }) }
     private var pos = 0
 
-    private fun curToken() = tokens[pos].text
+    private fun curToken() = tokens[pos]
     private fun nextToken() {
         pos++
     }
-    private fun satisfies(cur: String, text: String) : Boolean {
-        if (text == "[B@67117f44") {
-            return cur.all { it.isLetterOrDigit() || it == '_' } && cur.length != 0 && cur[0].isLetter()
-        }
-        return cur == text
-    }
-    private fun consume(parent: AnyNode?, text: String) : TerminalNode {
-        if (!satisfies(curToken(), text)) {
-            throw Exception("Expected ${text.takeIf { it != "[B@67117f44" }?.let { "\"$it\"" } ?: "IDENTIFIER" } instead of \"${curToken()}\"")
+    private fun consumeToken(parent: AnyNode?, token: Token) : TerminalNode {
+        val curText = curToken().text
+        if (curToken().token != token) {
+            throw Exception("Expected \"$token\" instead of \"${curText}\"")
         }
         nextToken()
-        return TerminalNode(parent, text)
+        return TerminalNode(parent, curText)
     }
-    private fun consumeAny(parent: AnyNode?, texts: List<String>) : TerminalNode {
-        val matchedText = texts.find { satisfies(curToken(), it) } ?: throw Exception("Expected ${ texts.map{ it.takeIf { it != "[B@67117f44" } ?: "IDENTIFIER" } } instead of \"${curToken()}\"")
+    private fun consumeLiteral(parent: AnyNode?, literal: String) : TerminalNode {
+        if (curToken().token != Token.LITERAL || curToken().text != literal) {
+            throw Exception("Expected \"$literal\" instead of \"${curToken().text}\"")
+        }
         nextToken()
-        return TerminalNode(parent, matchedText)
+        return TerminalNode(parent, literal)
     }
 
 
-    private fun parse_someNode(parent: AnyNode?, z: Int = 0): someNode_Node {
-        val someNode = someNode_Node(parent)
-        when {
-            listOf<String>("[B@67117f44").any { satisfies(curToken(), it) } -> {
-                val x0 = consumeAny(someNode, listOf("[B@67117f44"))
+    private fun parse_someNode(parent: AnyNode?, z:Int=0): someNode_Node {
+        val someNode = someNode_Node(parent, z)
+        when (curToken()) {
+            in listOf<TokenWithText>(TokenWithText(Token.IDENTIFIER, "")) -> {
+                val x0 = consumeToken(someNode, Token.IDENTIFIER)
                 val x1 = parse_someNode(someNode, z=someNode.z+1)
                 someNode.setChildren(x0, x1)
             }
-            listOf<String>("a", "koko").any { satisfies(curToken(), it) } -> {
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "b"), TokenWithText(Token.Term, ""), TokenWithText(Token.LITERAL, "a")) -> {
                 val x0 = parse_someOtherNode(someNode)
-                someNode.setChildren(x0)
+                val x1 = consumeToken(someNode, Token.EOF)
+                someNode.setChildren(x0, x1)
             }
             else -> throw Exception("unexpected token : ${curToken()}")
         }
         return someNode
     }
 
-    private fun parse_someOtherNode(parent: AnyNode?, z: Int = 0): someOtherNode_Node {
+    private fun parse_someOtherNode(parent: AnyNode?): someOtherNode_Node {
         val someOtherNode = someOtherNode_Node(parent)
-        when {
-            listOf<String>("a").any { satisfies(curToken(), it) } -> {
-                val x0 = consume(someOtherNode, "a")
+        when (curToken()) {
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "b")) -> {
+                val x0 = consumeLiteral(someOtherNode, "b")
                 someOtherNode.setChildren(x0)
             }
-            listOf<String>("a").any { satisfies(curToken(), it) } -> {
-                val x0 = consume(someOtherNode, "a")
+            in listOf<TokenWithText>(TokenWithText(Token.LITERAL, "a")) -> {
+                val x0 = consumeLiteral(someOtherNode, "a")
                 val x1 = parse_someOtherNode(someOtherNode)
                 someOtherNode.setChildren(x0, x1)
             }
-            listOf<String>("koko").any { satisfies(curToken(), it) } -> {
-                val x0 = consumeAny(someOtherNode, listOf("koko"))
+            in listOf<TokenWithText>(TokenWithText(Token.Term, "")) -> {
+                val x0 = consumeToken(someOtherNode, Token.Term)
                 someOtherNode.setChildren(x0)
             }
             else -> throw Exception("unexpected token : ${curToken()}")
@@ -185,3 +257,9 @@ class Parser(fileName: String) {
     fun parse() = parse_someNode(null)
 
 }
+
+fun main(args: Array<String>) {
+    val node = Parser("input.txt").parse()
+    println(node.treeView())
+}
+

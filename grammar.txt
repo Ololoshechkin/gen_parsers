@@ -1,8 +1,8 @@
 (x: Int = 0, y: String = "aba")  someNode (z: Int = 0)
- : IDENTIFIER [id] someNode [sn] (z = $z + 1) EOF { $x = 1 + sn.x!!; $y = id.text + " " + sn.y!!; }
+ : IDENTIFIER [id] someNode [sn] (z = $z + 1) { $x = 1 + sn.x!!; $y = id.text + " " + sn.y!!; }
  | someOtherNode EOF { x = -1; y = "undefined"; }
  ;
 
-someOtherNode: "a" | "a" someOtherNode | Term;
+someOtherNode: "b" | "a" someOtherNode | Term;
 
 Term: "koko";

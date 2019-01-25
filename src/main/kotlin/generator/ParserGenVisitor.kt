@@ -4,36 +4,25 @@ import antlr.generated.LL1GrammarParser
 import java.io.PrintWriter
 import java.util.*
 
-internal class ParserGenVisitor(output: PrintWriter, lexerVisitor: LexerVisitor) : SkippingVisitor(output) {
+internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
 
-    val tokenToTexts = lexerVisitor.tokenToTexts
 
-    val EPS = "\"\""
-    val EOF = "\"^\""
-    val IDENTIFIER_MARKER: String by lazy {
-        val bytes = ByteArray(10)
-        Random().nextBytes(bytes)
-        "\"${bytes}\""
+    data class Token(val token: String, val literal: String? = null) {
+        override fun toString() = "TokenWithText(Token.$token, ${literal ?: "\"\""})"
     }
 
-    val first = hashMapOf<String, HashSet<String>>()
-    val follow = hashMapOf<String, HashSet<String>>()
+    val EPS = Token("EPS")
+    val EOF = Token("EPS")
 
-    init {
-        tokenToTexts.put("IDENTIFIER", hashSetOf(IDENTIFIER_MARKER))
-        tokenToTexts.put("EOF", hashSetOf(EOF))
-    }
+    val first = hashMapOf<String, HashSet<Token>>()
+    val follow = hashMapOf<String, HashSet<Token>>()
 
-    fun first(sequence: List<LL1GrammarParser.SequenceItemContext>): HashSet<String> {
-        if (sequence.isEmpty()) return hashSetOf(EPS)
+    fun first(sequence: List<LL1GrammarParser.SequenceItemContext>): HashSet<Token> {
+        if (sequence.isEmpty()) return hashSetOf(Token("EPS"))
         val firstElem = sequence.first()
         return when {
-            firstElem.literal() != null -> hashSetOf(firstElem.literal().text)
-            firstElem.terminal() != null -> {
-                val terminal = firstElem.terminal().text
-                if (terminal != "IDENTIFIER") tokenToTexts[terminal]!!
-                else hashSetOf(IDENTIFIER_MARKER)
-            }
+            firstElem.literal() != null -> hashSetOf(Token("LITERAL", firstElem.literal().text))
+            firstElem.terminal() != null -> hashSetOf(Token(firstElem.terminal().text))
             else -> {
                 val ans = first[firstElem.nonTerminal().text]!!
                 if (EPS in ans) {
@@ -104,52 +93,60 @@ internal class ParserGenVisitor(output: PrintWriter, lexerVisitor: LexerVisitor)
         buildFirst(ctx)
         buildFollow(ctx)
 
-        output.println("" +
-                "class Parser(fileName: String) {\n" +
-                "    private val tokens = applyLexer(fileName)\n" +
-                "    private var pos = 0\n" +
-                "\n" +
-                "    private fun curToken() = tokens[pos].text\n" +
-                "    private fun nextToken() {\n" +
-                "        pos++\n" +
-                "    }\n" +
-                "    private fun satisfies(cur: String, text: String) : Boolean {\n" +
-                "        if (text == $IDENTIFIER_MARKER) {\n" +
-                "            return cur.all { it.isLetterOrDigit() || it == '_' } && cur.length != 0 && cur[0].isLetter()\n" +
-                "        }\n" +
-                "        return cur == text\n" +
-                "    }\n" +
-                "    private fun consume(parent: AnyNode?, text: String) : TerminalNode {\n" +
-                "        if (!satisfies(curToken(), text)) {\n" +
-                "            throw Exception(\"Expected \${text.takeIf { it != $IDENTIFIER_MARKER }?.let { \"\\\"\$it\\\"\" } ?: \"IDENTIFIER\" } instead of \\\"\${curToken()}\\\"\")\n" +
-                "        }\n" +
-                "        nextToken()\n" +
-                "        return TerminalNode(parent, text)\n" +
-                "    }\n" +
-                "    private fun consumeAny(parent: AnyNode?, texts: List<String>) : TerminalNode {\n" +
-                "        val matchedText = texts.find { satisfies(curToken(), it) } ?: throw Exception(\"Expected \${ texts.map{ it.takeIf { it != $IDENTIFIER_MARKER } ?: \"IDENTIFIER\" } } instead of \\\"\${curToken()}\\\"\")\n" +
-                "        nextToken()\n" +
-                "        return TerminalNode(parent, matchedText)\n" +
-                "    }\n" +
-                "\n"
+        output.println(
+            "" +
+                    "class Parser(fileName: String) {\n" +
+                    "    private val tokens = applyLexer(fileName).also { println(it.map { it.token }) }\n" +
+                    "    private var pos = 0\n" +
+                    "\n" +
+                    "    private fun curToken() = tokens[pos]\n" +
+                    "    private fun nextToken() {\n" +
+                    "        pos++\n" +
+                    "    }\n" +
+                    "    private fun consumeToken(parent: AnyNode?, token: Token) : TerminalNode {\n" +
+                    "        val curText = curToken().text\n" +
+                    "        if (curToken().token != token) {\n" +
+                    "            throw Exception(\"Expected \\\"\$token\\\" instead of \\\"\${curText}\\\"\")\n" +
+                    "        }\n" +
+                    "        nextToken()\n" +
+                    "        return TerminalNode(parent, curText)\n" +
+                    "    }\n" +
+                    "    private fun consumeLiteral(parent: AnyNode?, literal: String) : TerminalNode {\n" +
+                    "        if (curToken().token != Token.LITERAL || curToken().text != literal) {\n" +
+                    "            throw Exception(\"Expected \\\"\$literal\\\" instead of \\\"\${curToken().text}\\\"\")\n" +
+                    "        }\n" +
+                    "        nextToken()\n" +
+                    "        return TerminalNode(parent, literal)\n" +
+                    "    }\n" +
+                    "\n"
         )
 
         visitChildren(ctx)
 
-        output.println("" +
-                "   fun parse() = parse_${ctx!!.ruleStatement()!!.mapNotNull { it.nonTerminalRule() }.first().nonTerminal().text}(null)\n"
+        output.println(
+            "" +
+                    "   fun parse() = parse_${ctx!!.ruleStatement()!!.mapNotNull { it.nonTerminalRule() }.first().nonTerminal().text}(null)\n"
         )
 
         output.println("}")
+        output.println("" +
+                "\n" +
+                "fun main(args: Array<String>) {\n" +
+                "    val node = Parser(\"input.txt\").parse()\n" +
+                "    println(node.treeView())\n" +
+                "}\n"
+        )
     }
 
 
     override fun visitNonTerminalRule(ctx: LL1GrammarParser.NonTerminalRuleContext?) {
         val someNode = ctx!!.nonTerminal()!!.text
-        output.println("" +
-                "   private fun parse_$someNode(parent: AnyNode?, z: Int = 0): ${someNode}_Node {\n" +
-                "       val $someNode = ${someNode}_Node(parent)\n" +
-                "       when {"
+        val inheritedAttributes = ctx.inheritedAttributes()?.attributeList()?.attribute()
+        output.println(
+            "" +
+                    "   private fun parse_$someNode(parent: AnyNode?${inheritedAttributes?.joinToString(separator = ", ", prefix = ", ") { it.text } ?: ""}): ${someNode}_Node {\n" +
+                    "       val $someNode = ${someNode}_Node(parent${inheritedAttributes?.joinToString(separator = ", ", prefix = ", ") { it.varName().text } ?: ""})\n" +
+                    "       when (curToken()) {"
         )
 
         val alphas = ctx.nonTerminalOptionList()!!.nonTerminalOption()!!
@@ -158,25 +155,26 @@ internal class ParserGenVisitor(output: PrintWriter, lexerVisitor: LexerVisitor)
             val sequence = alpha!!.sequence()!!.sequenceItem()!!
             val firstAlpha = first(sequence)
             output.println(
-                    "           listOf<String>(${(firstAlpha - EPS).joinToString(", ")}).any { satisfies(curToken(), it) } -> {"
+                "           in listOf<TokenWithText>(${(firstAlpha - EPS).joinToString(", ")}) -> {"
             )
             sequence.forEachIndexed { i, X ->
                 when {
                     X.literal() != null -> {
                         output.println(
-                                "               val x$i = consume($someNode, ${X.literal().text})"
+                            "               val x$i = consumeLiteral($someNode, ${X.literal().text})"
                         )
                     }
                     X.terminal() != null -> {
                         output.println(
-                                "               val x$i = consumeAny($someNode, listOf(${tokenToTexts[X.terminal().text]!!.joinToString(", ")}))"
+                            "               val x$i = consumeToken($someNode, Token.${X.terminal().text})"
                         )
                     }
                     else -> { // non-terminal
                         output.println(
-                                "               val x$i = parse_${X.nonTerminal().text}($someNode${X.inheritedValues()?.initializer()
-                                        ?.joinToString(separator = ", ", prefix = ", ") { it.text.replace("$", "$someNode.") } ?: ""
-                                })"
+                            "               val x$i = parse_${X.nonTerminal().text}($someNode${X.inheritedValues()?.initializer()
+                                ?.joinToString(separator = ", ", prefix = ", ") { it.text.replace("$", "$someNode.") }
+                                ?: ""
+                            })"
                         )
                     }
                 }
@@ -186,15 +184,17 @@ internal class ParserGenVisitor(output: PrintWriter, lexerVisitor: LexerVisitor)
         }
 
         if (alphas.any { EPS in first(it!!.sequence()!!.sequenceItem()!!) }) {
-            output.println("" +
-                    "           listOf<String>(${follow[someNode]!!.joinToString(", ")}).any { satisfies(curToken(), it) } -> {\n" +
-                    "               $someNode.setChildren(TerminalNode($someNode, $EPS))\n" +
-                    "           }"
+            output.println(
+                "" +
+                        "           in listOf<TokenWithText>(${follow[someNode]!!.joinToString(", ")}) -> {\n" +
+                        "               $someNode.setChildren(TerminalNode($someNode, $EPS))\n" +
+                        "           }"
             )
         }
 
-        output.println("" +
-                "           else -> throw Exception(\"unexpected token : \${curToken()}\")"
+        output.println(
+            "" +
+                    "           else -> throw Exception(\"unexpected token : \${curToken()}\")"
         )
 
         output.println("       }")

@@ -18,6 +18,72 @@ internal class GrammarClassDefVisitor(output: PrintWriter) : SkippingVisitor(out
                     "    abstract val text: String\n" +
                     "    abstract val childCount: Int\n" +
                     "    abstract fun getChild(i: Int): AnyNode\n" +
+                    "    @Throws(IOException::class)\n" +
+                    "    private fun treeView(outstrBuilder: StringBuilder, colPositions: ArrayList<Int>, depth: Int, popLast: Boolean) {\n" +
+                    "        var j = 0\n" +
+                    "        for (i in 0 until depth) {\n" +
+                    "            if (j < colPositions.size && colPositions[j] == i) {\n" +
+                    "                outstrBuilder.append(if (j == colPositions.size - 1 && popLast) '+' else '|')\n" +
+                    "                j++\n" +
+                    "            } else if (i == depth - 1) {\n" +
+                    "                outstrBuilder.append('>')\n" +
+                    "            } else if (j == colPositions.size) {\n" +
+                    "                outstrBuilder.append('-')\n" +
+                    "            } else {\n" +
+                    "                outstrBuilder.append(' ')\n" +
+                    "            }\n" +
+                    "        }\n" +
+                    "        outstrBuilder.append(toString())\n" +
+                    "        outstrBuilder.append(\"  \" + getAttributes())\n" +
+                    "        outstrBuilder.append('\\n')\n" +
+                    "        if (popLast) {\n" +
+                    "            colPositions.removeAt(colPositions.size - 1)\n" +
+                    "        }\n" +
+                    "        colPositions.add(depth)\n" +
+                    "        for (i in 0 until childCount) {\n" +
+                    "            getChild(i).treeView(\n" +
+                    "                outstrBuilder,\n" +
+                    "                colPositions,\n" +
+                    "                depth + toString().length / 2,\n" +
+                    "                i == childCount - 1\n" +
+                    "            )\n" +
+                    "        }\n" +
+                    "        if (childCount == 0) {\n" +
+                    "            colPositions.removeAt(colPositions.size - 1)\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    fun getAttributes() = when {\n" +
+                    "        this is TerminalNode -> \"\"\n" +
+                    "        else -> this::class.java.methods\n" +
+                    "            .filter {\n" +
+                    "                it.name.startsWith(\"get\") && !it.name.startsWith(\"getChild\") && it.name !in listOf(\n" +
+                    "                    \"getText\",\n" +
+                    "                    \"getParent\",\n" +
+                    "                    \"getClass\",\n" +
+                    "                    \"getAttributes\"\n" +
+                    "                )\n" +
+                    "            }\n" +
+                    "            .sortedBy { it.name }\n" +
+                    "            .joinToString(separator = \", \") {\n" +
+                    "                \"\${it.name.removePrefix(\"get\")} = \${it.invoke(this)}\"\n" +
+                    "            }\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    override fun toString(): String {\n" +
+                    "        var str = this.javaClass.simpleName\n" +
+                    "        if (this is TerminalNode) {\n" +
+                    "            str += \"[\\\"\$text\\\"]\"\n" +
+                    "        }\n" +
+                    "        return str\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    @Throws(IOException::class)\n" +
+                    "    fun treeView(): String {\n" +
+                    "        val outstrBuilder = StringBuilder()\n" +
+                    "        treeView(outstrBuilder, ArrayList(), 0, false)\n" +
+                    "        return outstrBuilder.toString()\n" +
+                    "    }\n" +
                     "}\n" +
                     "\n" +
                     "class TerminalNode(parent: AnyNode?, override val text: String) : AnyNode(parent) {\n" +
