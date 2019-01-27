@@ -18,12 +18,13 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
     val follow = hashMapOf<String, HashSet<Token>>()
 
     fun first(sequence: List<LL1GrammarParser.SequenceItemContext>): HashSet<Token> {
+        println("   first(${sequence.map { it.getChild(0).text }})")
         if (sequence.isEmpty()) return hashSetOf(EPS)
         val firstElem = sequence.first()
         return when {
             firstElem.literal() != null -> hashSetOf(Token("LITERAL", firstElem.literal().text))
             firstElem.terminal() != null && firstElem.terminal().text == "EPS" -> hashSetOf(EPS)
-            firstElem.terminal() != null -> hashSetOf(Token(firstElem.terminal().text))
+            firstElem.terminal() != null  -> hashSetOf(Token(firstElem.terminal().text))
             else -> {
                 val ans = first[firstElem.nonTerminal().text]!!
                 if (EPS in ans) {
@@ -37,6 +38,7 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
     }
 
     fun buildFirst(ctx: LL1GrammarParser.RulesetContext?) {
+        println("buildFirst - enter\n")
         val nonTerminalRules = ctx!!.ruleStatement()!!.mapNotNull { it.nonTerminalRule() }
         nonTerminalRules.forEach {
             first[it.nonTerminal().text] = hashSetOf()
@@ -46,15 +48,20 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
             changed = false
             nonTerminalRules.forEach {
                 val A = it.nonTerminal().text
+                println("A = $A")
                 it.nonTerminalOptionList()!!.nonTerminalOption()!!.forEach {
+                    println(" rule: ${it.sequence()!!.sequenceItem().map { it.getChild(0).text }}")
                     val firstAlpha = first(it.sequence()!!.sequenceItem())
                     if (!first[A]!!.containsAll(firstAlpha)) {
+                        println("       first[$A] !containsAll $firstAlpha}")
+//                        readLine()
                         changed = true
                         first[A]!! += firstAlpha
                     }
                 }
             }
         }
+        println("buildFirst - exit")
     }
 
     fun buildFollow(ctx: LL1GrammarParser.RulesetContext?) {

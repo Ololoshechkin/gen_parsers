@@ -23,6 +23,7 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
         )
         output.println("enum class Token {")
         output.println("    IDENTIFIER,")
+        output.println("    NUMBER,")
         output.println("    EOF,")
         output.println("    EPS,")
         output.println("    LITERAL,")
@@ -40,7 +41,7 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
                     "            i++\n" +
                     "        } else if (text[i].isLetter()) {\n" +
                     "           var pos = i + 1\n" +
-                    "           while (pos < text.length && (text[pos].isLetter() || text[pos].isDigit())) pos++\n" +
+                    "           while (pos < text.length && (text[pos].isLetterOrDigit())) pos++\n" +
                     "           val identifier = text.substring(i, pos)\n" +
                     "           if (false) {}\n" +
                     /*       */ textToToken
@@ -51,6 +52,11 @@ internal class LexerVisitor(output: PrintWriter) : SkippingVisitor(output) {
                     "           else {\n" +
                     "               tokenList.add(TokenWithText(Token.IDENTIFIER, identifier))\n" +
                     "           }\n" +
+                    "           i = pos\n" +
+                    "        } else if (text[i].isDigit()) {\n" +
+                    "           var pos = i\n" +
+                    "           while (pos < text.length && text[pos].isDigit()) pos++\n" +
+                    "           tokenList.add(TokenWithText(Token.NUMBER, text.substring(i, pos)))\n" +
                     "           i = pos\n" +
                     "        }"
         )

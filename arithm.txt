@@ -1,0 +1,42 @@
+(res: Int) expr
+    : mul [m] sumSuffix [s] {
+            $res = m.res!! + s.res!!
+        }
+    ;
+
+(res: Int = 0) sumSuffix
+    : EPS
+    | SUM_OP [op] mul [m] sumSuffix [s] {
+            $res = if (op.text == "+")
+                m.res!! + s.res!!
+            else
+                -m.res!! + s.res!!
+        }
+    ;
+
+(res: Int) mul
+    : pow [p] mulSuffix [m] { $res = p.res!! * m.res!! }
+    ;
+
+(res: Int = 1) mulSuffix
+    : EPS
+    | "*" pow [p] mulSuffix [m] { $res = p.res!! * m.res!! }
+    ;
+
+(res: Int) pow
+    : value [a] powSuffix [n] { $res = Math.pow(a.res!!.toDouble(), n.res!!.toDouble()).toInt() }
+    ;
+
+(res: Int = 1) powSuffix
+    : EPS
+    | "^" pow [p] { $res = p.res!! }
+    ;
+
+(res: Int) value
+    : NUMBER [n] { $res = n.text.toInt() }
+    | "(" expr [e] ")" { $res = e.res!! }
+    | SUM_OP [op] mul [m] { $res = if (op.text == "-") -m.res!! else m.res!! }
+    ;
+
+SUM_OP : "+" | "-";
+

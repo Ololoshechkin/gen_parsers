@@ -1,0 +1,30 @@
+(funCount: Int = 0, varCount: Int = 0) translationUnit (prevDeclarations: String = "")
+    : declaration [decl] translationUnit [tu] (prevDeclarations = decl.name + ", " + prevDeclarations) {
+            $funCount = tu.funCount!! + decl.funCount!!;
+            $varCount = tu.varCount!! + decl.varCount!!;
+        }
+    | EOF
+    ;
+
+(funCount: Int = 0, varCount: Int = 0, name: String) declaration
+    : funDecl [fn] { $funCount = 1; $name = fn.name!!}
+    | varDecl [vr] { $varCount = 1;  $name = vr.name!! }
+    ;
+
+(name: String) funDecl: "fun" IDENTIFIER [id] "(" argList ")" typeSuffix { $name = id.text };
+
+argList: EPS | arg argListSuffix;
+
+argListSuffix: EPS | "," argList;
+
+arg: IDENTIFIER typeSuffix;
+
+typeSuffix: ":" type;
+
+type: INT | STRING | BOOL;
+
+(name: String) varDecl: "var" IDENTIFIER [id] typeSuffix { $name = id.text };
+
+INT: "Int";
+STRING: "String";
+BOOL: "Boolean";

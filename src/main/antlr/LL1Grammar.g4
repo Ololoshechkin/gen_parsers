@@ -19,7 +19,7 @@ varName: identifier;
 
 type: identifier;
 
-initialValue: '=' ('0' | 'null' | STRING);
+initialValue: '=' (NUMBER | 'null' | STRING | 'true' | 'false');
 
 nonTerminal: NON_TERMINAL;
 terminal: TERMINAL;
@@ -68,7 +68,7 @@ STRING: '"' Schar* '"';
 fragment
 Schar: ~["\\\r\n] ;
 CODE : '{' (~[{}]+ CODE?)* '}';
-NUMBER : NONZERODIGIT (DIGIT)*;
+NUMBER : NONZERODIGIT (DIGIT)* | '0';
 fragment
 NONZERODIGIT : [1-9];
 fragment

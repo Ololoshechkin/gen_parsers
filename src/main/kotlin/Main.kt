@@ -1,5 +1,5 @@
 import generator.Generator
 
 fun main(args: Array<String>) {
-    Generator("grammar.txt").generate("Output.kt")
+    Generator("arithm.txt").generate("/Users/jetbrains/Documents/untitled/src/Main.kt")
 }

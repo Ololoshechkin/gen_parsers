@@ -1,5 +1,1 @@
-fun f(): Int
-
-var x: String
-
-fun gEE(y: Int, z: String): Boolean
+1 + 2 + 3 * 4
