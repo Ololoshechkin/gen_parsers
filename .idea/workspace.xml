@@ -2,207 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cd67f64-8e96-413e-8cf9-e1254a4df0c2" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/arithm.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/kt_grammar.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/kotlin/Abacaba.kt" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterPath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileChanges/last-build.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Output.kt" afterPath="$PROJECT_DIR$/Output.kt" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarLexer.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarLexer.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$CodeContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$CodeContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$IdentifierContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$IdentifierContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$InheritedValuesContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$InheritedValuesContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$InitialValueContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$InitialValueContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$InitializerContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$InitializerContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$LiteralContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$LiteralContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NamedArgContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NamedArgContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NonTerminalContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NonTerminalContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NonTerminalOptionContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NonTerminalOptionContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NonTerminalOptionListContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NonTerminalOptionListContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NonTerminalRuleContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$NonTerminalRuleContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$SequenceContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$SequenceContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$SequenceItemContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$SequenceItemContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$TerminalContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$TerminalContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$TerminalOptionContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$TerminalOptionContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$TerminalOptionListContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$TerminalOptionListContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$TerminalRuleContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$TerminalRuleContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$VarValueContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$VarValueContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$VariableContext.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser$VariableContext.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser.class" afterPath="$PROJECT_DIR$/build/classes/java/main/antlr/generated/LL1GrammarParser.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/AnyNode.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/AnyNode.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/META-INF/gen_parsers_main.kotlin_module" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/META-INF/gen_parsers_main.kotlin_module" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/MainKt.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/MainKt.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/NonTerminalNode$text$2.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/NonTerminalNode$text$2.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/NonTerminalNode.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/NonTerminalNode.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/Parser.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/Parser.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/TerminalNode.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/TerminalNode.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/TmpKt.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/Token.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/Token.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/TokenWithText.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/TokenWithText.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/Generator.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/generator/Generator.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/GrammarClassDefVisitor$visitNonTerminalOption$code$1.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/generator/GrammarClassDefVisitor$visitNonTerminalOption$code$1.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/GrammarClassDefVisitor.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/generator/GrammarClassDefVisitor.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/LexerVisitor$visitRuleset$2.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/generator/LexerVisitor$visitRuleset$2.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/LexerVisitor$visitRuleset$3.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/LexerVisitor.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/generator/LexerVisitor.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/ParserGenVisitor$IDENTIFIER_MARKER$2.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/ParserGenVisitor$visitNonTerminalRule$$inlined$forEach$lambda$1.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/generator/ParserGenVisitor$visitNonTerminalRule$$inlined$forEach$lambda$1.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/ParserGenVisitor$visitNonTerminalRule$1$2.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/generator/ParserGenVisitor.class" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/generator/ParserGenVisitor.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/someNode_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/someOtherNode_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/class-fq-name-to-source.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/internal-name-to-source.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/package-parts.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/proto.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-classes.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/source-to-output.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/subtypes.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/subtypes.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/subtypes.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/subtypes.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/subtypes.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/subtypes.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/subtypes.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/subtypes.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/increCache.gen_parsers_main/kotlin/supertypes.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/counters.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/counters.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/file-to-id.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/id-to-file.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.keystream" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.keystream" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.keystream.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.keystream.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.len" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.len" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.values" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.values" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.values.at" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.values.at" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.values.s" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab.values.s" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab_i" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches/lookups/lookups.tab_i" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/last-build.bin" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/last-build.bin" />
-      <change beforePath="$PROJECT_DIR$/grammar.txt" afterPath="$PROJECT_DIR$/grammar.txt" />
-      <change beforePath="$PROJECT_DIR$/input.txt" afterPath="$PROJECT_DIR$/input.txt" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/AnyNode$getAttributes$$inlined$sortedBy$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/AnyNode$getAttributes$3.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/AnyNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/META-INF/gen_parsers_main.kotlin_module" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/MainKt.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/NonTerminalNode$text$2.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/NonTerminalNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/Parser.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/TerminalNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/TmpKt.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/Token.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/TokenWithText.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarBaseListener.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarBaseVisitor.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarLexer.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarListener.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$AttributeContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$AttributeListContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$CodeContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$IdentifierContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$InheritedAttributesContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$InheritedValuesContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$InitialValueContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$InitializerContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$LiteralContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$NamedArgContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$NonTerminalContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$NonTerminalOptionContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$NonTerminalOptionListContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$NonTerminalRuleContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$RuleStatementContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$RulesetContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$SequenceContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$SequenceItemContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$SimpleAttributesContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$TerminalContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$TerminalOptionContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$TerminalOptionListContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$TerminalRuleContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$TypeContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$VarNameContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$VarValueContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser$VariableContext.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarParser.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/antlr/generated/LL1GrammarVisitor.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/argListSuffix_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/argList_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/arg_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/declaration_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/funDecl_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/Generator.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/GrammarClassDefVisitor$visitNonTerminalOption$code$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/GrammarClassDefVisitor.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/LexerVisitor$visitRuleset$2.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/LexerVisitor.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/ParserGenVisitor$Token.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/ParserGenVisitor$visitNonTerminalRule$$inlined$forEach$lambda$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/ParserGenVisitor$visitNonTerminalRule$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/ParserGenVisitor$visitNonTerminalRule$2.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/ParserGenVisitor$visitNonTerminalRule$3$2.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/ParserGenVisitor.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/generator/SkippingVisitor.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/translationUnit_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/typeSuffix_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/type_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/varDecl_Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/generated/java/antlr/generated/LL1Grammar.tokens" afterPath="$PROJECT_DIR$/src/generated/java/antlr/generated/LL1Grammar.tokens" />
-      <change beforePath="$PROJECT_DIR$/src/generated/java/antlr/generated/LL1GrammarLexer.java" afterPath="$PROJECT_DIR$/src/generated/java/antlr/generated/LL1GrammarLexer.java" />
-      <change beforePath="$PROJECT_DIR$/src/generated/java/antlr/generated/LL1GrammarLexer.tokens" afterPath="$PROJECT_DIR$/src/generated/java/antlr/generated/LL1GrammarLexer.tokens" />
-      <change beforePath="$PROJECT_DIR$/src/generated/java/antlr/generated/LL1GrammarParser.java" afterPath="$PROJECT_DIR$/src/generated/java/antlr/generated/LL1GrammarParser.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/antlr/LL1Grammar.g4" afterPath="$PROJECT_DIR$/src/main/antlr/LL1Grammar.g4" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/generator/LexerVisitor.kt" afterPath="$PROJECT_DIR$/src/main/kotlin/generator/LexerVisitor.kt" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/generator/ParserGenVisitor.kt" afterPath="$PROJECT_DIR$/src/main/kotlin/generator/ParserGenVisitor.kt" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/generator/Tmp.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Abacaba.kt" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -310,23 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Abacaba.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/Abacaba.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="116" column="22" lean-forward="false" selection-start-line="116" selection-start-column="22" selection-end-line="116" selection-end-column="22" />
-              <folding>
-                <element signature="e#1#47#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="arithm.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/arithm.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+            <state relative-caret-position="315">
+              <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -1205,12 +993,12 @@
       <workItem from="1548165602591" duration="30270000" />
       <workItem from="1548335500327" duration="5965000" />
       <workItem from="1548341803642" duration="6843000" />
-      <workItem from="1548626852367" duration="4436000" />
+      <workItem from="1548626852367" duration="4466000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61108000" />
+    <option name="totallyTimeSpent" value="61138000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1221,8 +1009,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27372766" sideWeight="0.503231" order="23" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33131802" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2732769" sideWeight="0.49676898" order="22" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33131802" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2732769" sideWeight="0.49676898" order="22" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2639485" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Reviews" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="24" side_tool="false" content_ui="tabs" />
@@ -1668,9 +1456,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="383">
           <caret line="116" column="22" lean-forward="false" selection-start-line="116" selection-start-column="22" selection-end-line="116" selection-end-column="22" />
-          <folding>
-            <element signature="e#1#47#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1684,8 +1470,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/arithm.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+        <state relative-caret-position="315">
+          <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
           <folding />
         </state>
       </provider>
