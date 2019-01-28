@@ -24,7 +24,7 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
         return when {
             firstElem.literal() != null -> hashSetOf(Token("LITERAL", firstElem.literal().text))
             firstElem.terminal() != null && firstElem.terminal().text == "EPS" -> hashSetOf(EPS)
-            firstElem.terminal() != null  -> hashSetOf(Token(firstElem.terminal().text))
+            firstElem.terminal() != null -> hashSetOf(Token(firstElem.terminal().text))
             else -> {
                 val ans = first[firstElem.nonTerminal().text]!!
                 if (EPS in ans) {
@@ -131,18 +131,31 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
 
         visitChildren(ctx)
 
+        val firstNonTerminalRule = ctx!!.ruleStatement()!!.mapNotNull { it.nonTerminalRule() }.first()
+        val firstNonTerminal = firstNonTerminalRule.nonTerminal().text
+        val firstNonTerminalArgs = firstNonTerminalRule
+            .inheritedAttributes()
+            ?.attributeList()
+            ?.attribute()
+            ?: listOf()
+
         output.println(
             "" +
-                    "   fun parse() = parse_${ctx!!.ruleStatement()!!.mapNotNull { it.nonTerminalRule() }.first().nonTerminal().text}(null)\n"
+                    "   fun parse(${firstNonTerminalArgs.joinToString(", ") {
+                        it.text
+                    }}) = parse_$firstNonTerminal(null, ${firstNonTerminalArgs.joinToString(", ") {
+                        it.varName().text
+                    }})\n"
         )
 
         output.println("}")
-        output.println("" +
-                "\n" +
-                "fun main(args: Array<String>) {\n" +
-                "    val node = Parser(\"input.txt\").parse()\n" +
-                "    println(node.treeView())\n" +
-                "}\n"
+        output.println(
+            "" +
+                    "\n" +
+                    "fun main(args: Array<String>) {\n" +
+                    "    val node = Parser(\"input.txt\").parse()\n" +
+                    "    println(node.treeView())\n" +
+                    "}\n"
         )
     }
 
@@ -152,9 +165,15 @@ internal class ParserGenVisitor(output: PrintWriter) : SkippingVisitor(output) {
         val inheritedAttributes = ctx.inheritedAttributes()?.attributeList()?.attribute()
         output.println(
             "" +
-                    "   private fun parse_$someNode(parent: AnyNode?${inheritedAttributes?.joinToString(separator = ", ", prefix = ", ") { it.text } ?: ""}): ${someNode}_Node {\n" +
+                    "   private fun parse_$someNode(parent: AnyNode?${inheritedAttributes?.joinToString(
+                        separator = ", ",
+                        prefix = ", "
+                    ) { it.text } ?: ""}): ${someNode}_Node {\n" +
 //                    "       println(\"parse_$someNode, \$pos\")\n" +
-                    "       val $someNode = ${someNode}_Node(parent${inheritedAttributes?.joinToString(separator = ", ", prefix = ", ") { it.varName().text } ?: ""})\n" +
+                    "       val $someNode = ${someNode}_Node(parent${inheritedAttributes?.joinToString(
+                        separator = ", ",
+                        prefix = ", "
+                    ) { it.varName().text } ?: ""})\n" +
                     "       when (curToken()) {"
         )
 

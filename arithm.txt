@@ -1,12 +1,12 @@
-(res: Int) expr
-    : mul [m] sumSuffix [s] {
+(res: Int) expr (x: Int, y: Int, z: Int)
+    : mul [m] (x=$x, y=$y, z=$z) sumSuffix [s] (x=$x, y=$y, z=$z) {
             $res = m.res!! + s.res!!
         }
     ;
 
-(res: Int = 0) sumSuffix
+(res: Int = 0) sumSuffix (x: Int, y: Int, z: Int)
     : EPS
-    | SUM_OP [op] mul [m] sumSuffix [s] {
+    | SUM_OP [op] mul [m] (x=$x, y=$y, z=$z) sumSuffix [s] (x=$x, y=$y, z=$z) {
             $res = if (op.text == "+")
                 m.res!! + s.res!!
             else
@@ -14,29 +14,40 @@
         }
     ;
 
-(res: Int) mul
-    : pow [p] mulSuffix [m] { $res = p.res!! * m.res!! }
+(res: Int) mul (x: Int, y: Int, z: Int)
+    : pow [p] (x=$x, y=$y, z=$z) mulSuffix [m] (x=$x, y=$y, z=$z) { $res = p.res!! * m.res!! }
     ;
 
-(res: Int = 1) mulSuffix
+(res: Int = 1) mulSuffix (x: Int, y: Int, z: Int)
     : EPS
-    | "*" pow [p] mulSuffix [m] { $res = p.res!! * m.res!! }
+    | "*" pow [p] (x=$x, y=$y, z=$z) mulSuffix [m] (x=$x, y=$y, z=$z) { $res = p.res!! * m.res!! }
     ;
 
-(res: Int) pow
-    : value [a] powSuffix [n] { $res = Math.pow(a.res!!.toDouble(), n.res!!.toDouble()).toInt() }
+(res: Int) pow (x: Int, y: Int, z: Int)
+    : value [a] (x=$x, y=$y, z=$z) powSuffix [n] (x=$x, y=$y, z=$z) { $res = Math.pow(a.res!!.toDouble(), n.res!!.toDouble()).toInt() }
     ;
 
-(res: Int = 1) powSuffix
+(res: Int = 1) powSuffix (x: Int, y: Int, z: Int)
     : EPS
-    | "^" pow [p] { $res = p.res!! }
+    | "^" pow [p] (x=$x, y=$y, z=$z) { $res = p.res!! }
     ;
 
-(res: Int) value
+(res: Int) value (x: Int, y: Int, z: Int)
     : NUMBER [n] { $res = n.text.toInt() }
-    | "(" expr [e] ")" { $res = e.res!! }
-    | SUM_OP [op] mul [m] { $res = if (op.text == "-") -m.res!! else m.res!! }
+    | "(" expr [e] (x=$x, y=$y, z=$z) ")" { $res = e.res!! }
+    | SUM_OP [op] mul [m] (x=$x, y=$y, z=$z) { $res = if (op.text == "-") -m.res!! else m.res!! }
+    | variable [v] (x=$x, y=$y, z=$z) { $res = v.res!! }
     ;
+
+(res: Int) variable (x: Int, y: Int, z: Int)
+    : varX { $res = $x }
+    | varY { $res = $y }
+    | varZ { $res = $z }
+    ;
+
+varX: "x";
+varY: "y";
+varZ: "z";
 
 SUM_OP : "+" | "-";
 
